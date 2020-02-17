@@ -26,10 +26,11 @@ public class PetClinicRestController {
     private PetClinicService petClinicService;
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/owner/{id}")
-    public ResponseEntity<?> deleteOwner(@PathVariable Long id) {
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteOwner(@PathVariable Long id) {
         try {
+            petClinicService.findOwner(id);
             petClinicService.deleteOwner(id);
-            return ResponseEntity.ok().build();
         } catch (OwnerNotFoundExceptiıon one) {
             throw one;
         } catch (Exception e) {
@@ -87,15 +88,15 @@ public class PetClinicRestController {
         return ResponseEntity.ok(owners);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/owner/{id}",produces = "application/json")
+    @RequestMapping(method = RequestMethod.GET, value = "/owner/{id}", produces = "application/json")
     public ResponseEntity<?> getOwnerAsHateoas(@PathVariable("id") Long id) {
         try {
             Owner owner = petClinicService.findOwner(id);
-            Link self = ControllerLinkBuilder.linkTo(PetClinicRestController.class).slash("/owner/"+id).withSelfRel();
-            Link create = ControllerLinkBuilder.linkTo(PetClinicRestController.class).slash("/owner/"+id).withRel("create");
-            Link update = ControllerLinkBuilder.linkTo(PetClinicRestController.class).slash("/owner/"+id).withRel("update");
-            Link delete = ControllerLinkBuilder.linkTo(PetClinicRestController.class).slash("/owner/"+id).withRel("delete");
-            Resource<Owner> resource = new Resource<>(owner,self,create,update,delete);
+            Link self = ControllerLinkBuilder.linkTo(PetClinicRestController.class).slash("/owner/" + id).withSelfRel();
+            Link create = ControllerLinkBuilder.linkTo(PetClinicRestController.class).slash("/owner/" + id).withRel("create");
+            Link update = ControllerLinkBuilder.linkTo(PetClinicRestController.class).slash("/owner/" + id).withRel("update");
+            Link delete = ControllerLinkBuilder.linkTo(PetClinicRestController.class).slash("/owner/" + id).withRel("delete");
+            Resource<Owner> resource = new Resource<>(owner, self, create, update, delete);
             return ResponseEntity.ok(resource);
         } catch (OwnerNotFoundExceptiıon ex) {
             return ResponseEntity.noContent().build();

@@ -13,25 +13,18 @@ import javax.sql.DataSource;
  * Created by EMINCAKICI on Feb Sat 15,2020
  */
 @Configuration
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration extends AbstractSecurityConfiguration {
 
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @Autowired
-    private DataSource dataSource;
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/**/favicon.ico", "/css/**", "/js/**", "/images/**", "/webjars/**", "/login.html").permitAll();
+        http.authorizeRequests().antMatchers("/actuator/**").access("hasRole('ADMIN')");
         http.authorizeRequests().anyRequest().authenticated();
         http.formLogin().loginPage("/login.html").loginProcessingUrl("/login").failureUrl("/login.html?loginFailed=true");
         http.rememberMe().userDetailsService(userDetailsService);
-        http.httpBasic();
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().dataSource(dataSource);
+        //http.httpBasic();
     }
 }
