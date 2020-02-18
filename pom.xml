@@ -15,6 +15,16 @@
     </parent>
     <dependencies>
         <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
@@ -35,16 +45,20 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-hateoas</artifactId>
         </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-library</artifactId>
-            <scope>test</scope>
-        </dependency>
+        <!--eklenen spring-boot-starter-test dependency
+        junit ve hamcrest kabiliyetlerini karsiladigi icin commentlendi-->
+       <!--
+           <dependency>
+               <groupId>junit</groupId>
+               <artifactId>junit</artifactId>
+               <scope>test</scope>
+           </dependency>
+           <dependency>
+               <groupId>org.hamcrest</groupId>
+               <artifactId>hamcrest-library</artifactId>
+               <scope>test</scope>
+           </dependency>
+           -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
