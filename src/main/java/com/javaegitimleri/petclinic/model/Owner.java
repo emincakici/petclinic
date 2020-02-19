@@ -14,7 +14,7 @@ import java.util.Set;
 public class Owner {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "petClinicSeqen")
-    @SequenceGenerator(name = "petClinicSeqen",sequenceName = "petClinic_sequence")
+    @SequenceGenerator(name = "petClinicSeqen",sequenceName = "PETCLINIC_SEQUENCE")
     private Long id;
 
     @Column(name = "first_name")
