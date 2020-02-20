@@ -3,6 +3,7 @@ package com.javaegitimleri.petclinic.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import java.util.HashSet;
@@ -13,12 +14,14 @@ import java.util.Set;
 @XmlRootElement
 public class Owner {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "petClinicSeqen")
-    @SequenceGenerator(name = "petClinicSeqen",sequenceName = "PETCLINIC_SEQUENCE")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "petClinicSeqen")
+    @SequenceGenerator(name = "petClinicSeqen", sequenceName = "PETCLINIC_SEQUENCE")
     private Long id;
 
+    @NotEmpty
     @Column(name = "first_name")
     private String firstName;
+    @NotEmpty
     @Column(name = "last_name")
     private String lastName;
 
