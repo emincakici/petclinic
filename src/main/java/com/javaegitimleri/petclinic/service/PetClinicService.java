@@ -1,7 +1,9 @@
 package com.javaegitimleri.petclinic.service;
 
 import com.javaegitimleri.petclinic.exception.OwnerNotFoundExceptiıon;
+import com.javaegitimleri.petclinic.exception.VetNotFoundException;
 import com.javaegitimleri.petclinic.model.Owner;
+import com.javaegitimleri.petclinic.model.Vet;
 
 import java.util.List;
 
@@ -15,4 +17,6 @@ public interface PetClinicService {
     void createOwner(Owner owner);
     void updateOwner(Owner owner);
     void deleteOwner(Long id);
+    List<Vet> findVets();
+    Vet findVet(Long id) throws VetNotFoundException;
 }
