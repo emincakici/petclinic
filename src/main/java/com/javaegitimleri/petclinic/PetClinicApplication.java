@@ -4,8 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+//Spring cache kabiliyeti devreye aliniyor...
+@EnableCaching
 @EnableJpaAuditing(auditorAwareRef = "petClinicAuditorAware")
 @ServletComponentScan
 @SpringBootApplication
