@@ -4,6 +4,7 @@ import com.javaegitimleri.petclinic.exception.InternalServerException;
 import com.javaegitimleri.petclinic.exception.OwnerNotFoundExceptiıon;
 import com.javaegitimleri.petclinic.model.Owner;
 import com.javaegitimleri.petclinic.service.PetClinicService;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.hateoas.Link;
@@ -62,8 +63,10 @@ public class PetClinicRestController {
             Long id = owner.getId();
             URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(id).toUri();
             return ResponseEntity.created(location).build();
+        } catch (ConstraintViolationException cv) {
+            return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).build();
         } catch (Exception e) {
-            return (ResponseEntity<URI>) ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
@@ -105,5 +108,4 @@ public class PetClinicRestController {
             return ResponseEntity.noContent().build();
         }
     }
-
 }

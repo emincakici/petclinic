@@ -15,12 +15,17 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
  * Created by EMINCAKICI on Feb Mon,2020
  */
+//Anotasyon ile Servis bean metodlarinin ve return
+//degerlerinin validasyona tabi tutulmasi saglaniyor
+@Validated
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class PetClinicServiceImpl implements PetClinicService {
@@ -73,7 +78,7 @@ public class PetClinicServiceImpl implements PetClinicService {
 
     @Override
     @CacheEvict(cacheNames = "allOwners", allEntries = true)
-    public void createOwner(Owner owner) {
+    public void createOwner(@Valid Owner owner) {
         ownerRepository.create(owner);
         SimpleMailMessage smm = new SimpleMailMessage();
         smm.setFrom("k@s");

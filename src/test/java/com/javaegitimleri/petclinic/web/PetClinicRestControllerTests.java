@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.support.BasicAuthorizationInterceptor;
 import org.springframework.test.context.ActiveProfiles;
@@ -38,7 +39,7 @@ public class PetClinicRestControllerTests {
 
     @Before
     public void setUp() {
-        restTemplate = restTemplate.withBasicAuth("user2","secret");
+        restTemplate = restTemplate.withBasicAuth("user2", "secret");
         //restTemplate = new RestTemplate();
         //BasicAuthorizationInterceptor basicAuthorizationInterceptor = new BasicAuthorizationInterceptor("user", "secret");
         //restTemplate.setInterceptors(Arrays.asList(basicAuthorizationInterceptor));
@@ -105,6 +106,15 @@ public class PetClinicRestControllerTests {
 
         MatcherAssert.assertThat(firstNames, Matchers.containsInAnyOrder("Emin", "Kenan"));
 
+    }
+
+    @Test
+    public void testServiceLevelValidation() {
+        Owner owner = new Owner();
+        //owner.setFirstName("E");
+        //owner.setLastName("Ç");
+        ResponseEntity<URI> responseEntity = restTemplate.postForEntity("http://localhost:8080/rest/owner", owner, URI.class);
+        MatcherAssert.assertThat(responseEntity.getStatusCode(),Matchers.equalTo(HttpStatus.PRECONDITION_FAILED));
     }
 
 }

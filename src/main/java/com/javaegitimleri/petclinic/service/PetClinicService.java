@@ -5,6 +5,7 @@ import com.javaegitimleri.petclinic.exception.VetNotFoundException;
 import com.javaegitimleri.petclinic.model.Owner;
 import com.javaegitimleri.petclinic.model.Vet;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -14,7 +15,8 @@ public interface PetClinicService {
     List<Owner> findOwners();
     List<Owner> findOwners(String lastName);
     Owner findOwner (Long id) throws OwnerNotFoundExceptiıon;
-    void createOwner(Owner owner);
+    //Metod duzeyinde validasyon
+    void createOwner(@Valid Owner owner);
     void updateOwner(Owner owner);
     void deleteOwner(Long id);
     List<Vet> findVets();
